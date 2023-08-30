@@ -44,7 +44,7 @@ jobs:
         uses: actions/github-script@v5
         id: raw-files
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const addedFiles = github.context.payload.commits[0].added;
             const modifiedFiles = github.context.payload.commits[0].modified;
