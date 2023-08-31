@@ -130,7 +130,9 @@ jobs:
 
       - name: Bundle up Terraform module
         working-directory: ${{ matrix.directory }}
-        run: zip -vr ../../output/terraform-module.zip *
+        run: |
+          pwd
+          zip -vr ../../output/terraform-module.zip *
 
       - name: Upload result artifacts
         uses: actions/upload-artifact@v2
