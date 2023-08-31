@@ -1,0 +1,4 @@
+{
+    "name": "aws_iam_access_key",
+    "description": "A terraform module"
+}
