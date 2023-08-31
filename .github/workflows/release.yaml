@@ -1,14 +1,14 @@
 name: Module release
-# on:
-#   push:
-#     branches:
-#       - main
-
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
-  pull_request_target:
-    types: [closed]
+  push:
+    branches:
+      - main
+
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened, labeled, unlabeled]
+#   pull_request_target:
+#     types: [closed]
 
 permissions:
   issues: write
