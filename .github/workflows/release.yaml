@@ -40,30 +40,33 @@ jobs:
             exit 2
           fi
 
+      # - name: Get changed files
+      #   uses: actions/github-script@v5
+      #   id: raw-files
+      #   with:
+      #     github-token: ${{secrets.GITHUB_TOKEN}}
+      #     script: |
+      #       const addedFiles = github.context.payload.commits[0].added;
+      #       const modifiedFiles = github.context.payload.commits[0].modified;
+      #       const deletedFiles = github.context.payload.commits[0].removed;
+
+      #       const result = {
+      #         added: addedFiles,
+      #         modified: modifiedFiles,
+      #         deleted: deletedFiles,
+      #       };
+      #       console.log(JSON.stringify(fileChanges));
+      #       console.log("::set-output name=file-changes::" + JSON.stringify(fileChanges));
+
       - name: Get changed files
-        uses: actions/github-script@v5
-        id: raw-files
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const addedFiles = github.context.payload.commits[0].added;
-            const modifiedFiles = github.context.payload.commits[0].modified;
-            const deletedFiles = github.context.payload.commits[0].removed;
+        id: changed-files
+        uses: tj-actions/changed-files@v38
 
-            const result = {
-              added: addedFiles,
-              modified: modifiedFiles,
-              deleted: deletedFiles,
-            };
-            console.log(JSON.stringify(fileChanges));
-            console.log("::set-output name=file-changes::" + JSON.stringify(fileChanges));
-
-          
       - name: Condense to directory list
         uses: actions/github-script@v4
         id: condense
         env:
-          RAW_FILES: '${{ steps.raw-files.outputs.all }}'
+          RAW_FILES: '${{ steps.changed-files.outputs.all }}'
         with:
           script: |
             const raw = JSON.parse(process.env.RAW_FILES);
