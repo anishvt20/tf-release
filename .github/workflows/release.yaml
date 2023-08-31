@@ -129,7 +129,7 @@ jobs:
           echo '${{ steps.new-version.outputs.result }}' > output/new-version.txt
 
       - name: Bundle up Terraform module
-        working-directory: src/${{ matrix.directory }}
+        working-directory: ${{ matrix.directory }}
         run: zip -vr ../../output/terraform-module.zip *
 
       - name: Upload result artifacts
