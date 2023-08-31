@@ -10,3 +10,4 @@ resource "aws_iam_policy" "this" {
     var.module_depends_on
   ]
 }
+
