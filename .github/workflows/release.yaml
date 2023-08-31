@@ -9,6 +9,11 @@ on:
   pull_request_target:
     types: [closed]
 
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
 jobs:
   detect:
     runs-on: ubuntu-latest
