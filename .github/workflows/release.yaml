@@ -127,6 +127,8 @@ jobs:
           mkdir output
           echo '${{ steps.prev-version.outputs.result }}' > output/previous-version.txt
           echo '${{ steps.new-version.outputs.result }}' > output/new-version.txt
+          realpath -s output/new-version.txt
+          pwd
 
       - name: Bundle up Terraform module
         working-directory: ${{ matrix.directory }}
