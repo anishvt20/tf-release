@@ -130,6 +130,27 @@ jobs:
           realpath -s output/new-version.txt
           pwd
 
+      - name: Extract changelog entry
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const { data: prInfo } = await github.rest.pulls.get({
+              owner, repo,
+              pull_number: context.issue.number,
+            });
+            console.log('Found PR body:|');
+            console.log(prInfo.body);
+
+            const { writeFile } = require('fs').promises;
+            await writeFile('output/changelog.md', `
+            * PR [#${ prInfo.number }](${ prInfo.html_url }) - ${ prInfo.title }
+
+            \`\`\`
+            ${prInfo.body}
+            \`\`\`
+            `.trimLeft(), { encoding: 'utf-8' })
+
       - name: Clone repository for analysis
         uses: actions/checkout@v2
         with:
@@ -148,7 +169,6 @@ jobs:
           name: '${{ matrix.directory }}'
           path: output
           retention-days: 5
-
 
   comment:
     needs: [detect, plan]
