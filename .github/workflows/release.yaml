@@ -72,6 +72,7 @@ jobs:
           RAW_FILES: '${{ steps.changed-files.outputs.all }}'
         with:
           script: |
+            console.log(process.env.RAW_FILES);
             const raw = JSON.parse(process.env.RAW_FILES);
             const directories = Array.from(new Set(raw
               .filter(x => !x.startsWith('.'))
