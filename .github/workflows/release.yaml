@@ -130,11 +130,17 @@ jobs:
           realpath -s output/new-version.txt
           pwd
 
+      - name: Clone repository for analysis
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.sha }}
+          path: src
+
       - name: Bundle up Terraform module
-        working-directory: ${{ matrix.directory }}
+        working-directory: src/${{ matrix.directory }}
         run: |
           pwd
-          zip -vr ../output/terraform-module.zip *
+          zip -vr ../../output/terraform-module.zip *
 
       - name: Upload result artifacts
         uses: actions/upload-artifact@v2
