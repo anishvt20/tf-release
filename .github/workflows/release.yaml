@@ -134,7 +134,7 @@ jobs:
         working-directory: ${{ matrix.directory }}
         run: |
           pwd
-          zip -vr ../../output/terraform-module.zip *
+          zip -vr ../output/terraform-module.zip *
 
       - name: Upload result artifacts
         uses: actions/upload-artifact@v2
