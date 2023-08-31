@@ -1,8 +1,14 @@
 name: Module release
+# on:
+#   push:
+#     branches:
+#       - main
+
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  pull_request_target:
+    types: [closed]
 
 permissions:
   issues: write
@@ -37,7 +43,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 'lts/*'
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
