@@ -81,7 +81,7 @@ def write_file(filename, contents):
 def main():
     """Main function."""
     # Load the original package_json file
-    try: 
+    try:
         package_json = open_file("package.json")
     except FileNotFoundError as error_message:
         print("Failed!", str(error_message))
@@ -89,7 +89,8 @@ def main():
 
     # Update the package_json file with skeleton contents
     try:
-        updated_package_json = update_package_json(package_json, skeleton_contents)
+        updated_package_json = update_package_json(
+            package_json, skeleton_contents)
     except KeyError as error_message:
         print("Failed!", str(error_message))
         sys.exit(1)
