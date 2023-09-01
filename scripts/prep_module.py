@@ -19,6 +19,9 @@ skeleton_contents = {
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         "@semantic-release/github"
+    ],
+    "files": [
+        "modules/${{ matrix.module }}"
     ]
 }
 
