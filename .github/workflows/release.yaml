@@ -56,4 +56,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd modules/${{ matrix.module }} && ls  -la
+          cat package.json
           npx semantic-release -t ${{ matrix.module }}/'${version}'

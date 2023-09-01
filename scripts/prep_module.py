@@ -14,12 +14,7 @@ skeleton_contents = {
         "branches": [
             "main"
         ]
-    },
-    "plugins": [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        "@semantic-release/github"
-    ]
+    }
 }
 
 
@@ -54,9 +49,9 @@ def update_package_json(package_json, package_json_skeleton):
         dict: The updated package_json file.
     """
     try:
+        package_json_skeleton["plugins"] = package_json["plugins"]
         package_json_skeleton["name"] = package_json["name"]
         package_json_skeleton["description"] = package_json["description"]
-        package_json_skeleton["files"] = package_json["files"]
     except KeyError as error_message:
         print("Failed!", str(error_message))
         sys.exit(1)
