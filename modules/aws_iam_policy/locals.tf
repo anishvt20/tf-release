@@ -6,3 +6,4 @@ locals {
   policy      = try(coalesce(var.config.policy), null)
   tags        = try(coalesce(var.config.tags), {})
 }
+
