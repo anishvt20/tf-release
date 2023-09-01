@@ -1,4 +1,7 @@
 {
     "name": "aws_iam_policy",
-    "description": "A terraform module"
+    "description": "A terraform module",
+    "files": [
+        "modules/aws_iam_policy"
+    ]
 }
