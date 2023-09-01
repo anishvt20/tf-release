@@ -56,4 +56,4 @@ jobs:
         run: |
           cd modules/${{ matrix.module }} && ls  -la
           # shellcheck disable=SC2016
-          npx ./node_modules/.bin/semantic-release -t ${{ matrix.module }}/'${version}'
+          npx -p ./ ./node_modules/.bin/semantic-release -t ${{ matrix.module }}/'${version}'
