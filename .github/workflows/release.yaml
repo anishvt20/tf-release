@@ -1,8 +1,11 @@
 name: Module release
+# on:
+#   push:
+#     branches:
+#       - main
+
 on:
-  push:
-    branches:
-      - main
+  - pull_request
 
 permissions:
   issues: write
@@ -20,7 +23,7 @@ jobs:
         id: get-matrix
         uses: hellofresh/action-changed-files@v3
         with:
-          pattern: (?P<module>[^/]+)
+          pattern: modules/(?P<module>[^/]+)
   release-module:
     needs: generate-matrix
     name: Release
@@ -44,13 +47,13 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          cd ${{ matrix.module }}
+          cd modules/${{ matrix.module }}
           python3 "${GITHUB_WORKSPACE}"/scripts/prep_module.py
           npm install
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd ${{ matrix.module }}
+          cd modules/${{ matrix.module }} && ls  -la
           # shellcheck disable=SC2016
-          npx semantic-release@21.1.1 -t ${{ matrix.module }}/'${version}'
+          npx ./node_modules/.bin/semantic-release -t ${{ matrix.module }}/'${version}'
