@@ -19,9 +19,6 @@ skeleton_contents = {
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         "@semantic-release/github"
-    ],
-    "files": [
-        "modules/${{ matrix.module }}"
     ]
 }
 
@@ -59,6 +56,7 @@ def update_package_json(package_json, package_json_skeleton):
     try:
         package_json_skeleton["name"] = package_json["name"]
         package_json_skeleton["description"] = package_json["description"]
+        package_json_skeleton["files"] = package_json["files"]
     except KeyError as error_message:
         print("Failed!", str(error_message))
         sys.exit(1)
