@@ -7,7 +7,7 @@
             {
                 "assets": [
                     {
-                        "path": "modules/aws_iam_access_key/**",
+                        "path": "modules/aws_iam_access_key",
                         "label": "aws_iam_access_key"
                     }
                 ]
