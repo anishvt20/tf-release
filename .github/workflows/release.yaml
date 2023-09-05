@@ -69,13 +69,7 @@ jobs:
 
       - name: Create Artifact
         run: |
-          module_name=${{ matrix.module }}
-          artifact_dir="dist/${{ matrix.module }}"
-
-          mkdir -p $artifact_dir
-          cp -R $module_name/* $artifact_dir/
-
-          zip -r release_artifact.zip $artifact_dir
+          zip -r ${{ matrix.module }}_release_artifact.zip ${{ matrix.module }} -x="${{ matrix.module }}/node_modules/*"
         working-directory: modules
 
       - name: Upload Artifact
@@ -84,4 +78,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: release_artifact
-          path: release_artifact.zip
+          path: modules/${{ matrix.module }}_release_artifact.zip
