@@ -3,3 +3,4 @@ locals {
   pgp_key = try(coalesce(var.config.pgp_key), null)
   status  = try(coalesce(var.config.status), null)
 }
+
