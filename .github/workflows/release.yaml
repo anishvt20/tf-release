@@ -62,7 +62,10 @@ jobs:
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: |
+          cd modules/${{ matrix.module }}
+          cat package.json
+          npx semantic-release
 
       - name: Create Artifact
         run: |
