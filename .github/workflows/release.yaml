@@ -51,10 +51,34 @@ jobs:
           cd modules/${{ matrix.module }}
           python3 "${GITHUB_WORKSPACE}"/scripts/prep_module.py
           npm install
-      - name: Release
+      # - name: Release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     cd modules/${{ matrix.module }} && ls  -la
+      #     cat package.json
+      #     npx semantic-release -t ${{ matrix.module }}/'${version}'
+
+      - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: Create Artifact
         run: |
-          cd modules/${{ matrix.module }} && ls  -la
-          cat package.json
-          npx semantic-release -t ${{ matrix.module }}/'${version}'
+          module_name=${{ matrix.module }}
+          artifact_dir="dist/${{ matrix.module }}"
+
+          mkdir -p $artifact_dir
+          cp -R $module_name/* $artifact_dir/
+
+          zip -r release_artifact.zip $artifact_dir
+        working-directory: modules
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: release_artifact
+          path: release_artifact.zip
